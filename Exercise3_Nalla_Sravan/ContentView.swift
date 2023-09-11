@@ -5,6 +5,13 @@
 //  Created by Sravan Sai Rahul Nalla.
 //
 
+/*  References
+ For Creating Viewss - https://www.hackingwithswift.com/quick-start/swiftui/how-to-present-a-new-view-using-sheets
+ 
+ Color Extension - https://www.hackingwithswift.com/forums/100-days-of-swiftui/problems-extending-color/12064
+
+ */
+
 import SwiftUI
 
 extension Color{
@@ -65,7 +72,7 @@ struct ContentView: View {
             
             CardView(title: topics[topicIdx], contents: vc[topicIdx])
             
-                .padding(.bottom,50)
+                .padding(.bottom,55)
             
             
             //            Button(action: nextCard) {

@@ -4,6 +4,11 @@ import SwiftUI
 struct BulletInputView: View {
     @Binding var isPresented: Bool
     @State private var bulletText: String = ""
+    
+    // @State private var bulletText: String = "New Bullet"
+    /*
+     If we uncomment above line, the default string will be New Bullet and we can edit that.
+     */
     @State private var showingEmptyBulletAlert = false
     var onSave: (String) -> Void
     var title: String
