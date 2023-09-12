@@ -9,7 +9,8 @@
  For Creating Viewss - https://www.hackingwithswift.com/quick-start/swiftui/how-to-present-a-new-view-using-sheets
  
  Color Extension - https://www.hackingwithswift.com/forums/100-days-of-swiftui/problems-extending-color/12064
-
+ 
+ onTapGesture - https://www.hackingwithswift.com/forums/100-days-of-swiftui/textfield-day-35/16141
  */
 
 import SwiftUI
@@ -51,7 +52,7 @@ struct ContentView: View {
     
     @State var topics = ["UIAlertController", "UIKit", "View Controller"]
     
-    @State var vc = [["configure alerts and action sheets", "intended to be used as-is", "does not support subclassing", "inherits from UIViewController", "New Bullet point should not be empty"],
+    @State var vc = [["configure alerts and action sheets", "intended to be used as-is", "does not support subclassing", "The bullet point cant be empty, if it is empty and we click on Save it will trigger an Alert", "For edit card name, we autopopulating the text"],
                      
                      ["provides required iOS infrastructure", "window and view architecture", "event handling for multi-touch and etc", "manages interaction with system", "a lot of features incl. resource mgmnt"],
                      
@@ -63,7 +64,7 @@ struct ContentView: View {
                 .font(.title)
                 .bold()
                 .foregroundColor(.customOrange)
-                .padding(.top,30)
+                .padding(.top,53)
             
             
             Image( uiImage: icons[topicIdx])
@@ -72,7 +73,7 @@ struct ContentView: View {
             
             CardView(title: topics[topicIdx], contents: vc[topicIdx])
             
-                .padding(.bottom,55)
+                .padding(.bottom,33)
             
             
             //            Button(action: nextCard) {
@@ -117,9 +118,9 @@ struct ContentView: View {
                     Spacer()
                 }
                 .sheet(isPresented: $isBulletSheetPresented) {
-                    BulletInputView(isPresented: $isBulletSheetPresented, onSave: { newBullet in
+                    BulletInputView(isPresented: $isBulletSheetPresented, initialBulletText: "New bullet", onSave: { newBullet in
                         addBullet(newBullet)
-                    }, title: topics[topicIdx],header: "ADD BULLET",inputPlaceholder: "Bullet Point")
+                    }, title: topics[topicIdx],header: "ADD BULLET",paddingValue: 26, inputPlaceholder: "Bullet Point")
                     
                 }
             }
@@ -139,11 +140,11 @@ struct ContentView: View {
                     Spacer()
                 }
                 .sheet(isPresented: $isCardNameEditSheetPresented) {
-                    BulletInputView(isPresented: $isCardNameEditSheetPresented, onSave: { newName in
+                    BulletInputView(isPresented: $isCardNameEditSheetPresented,initialBulletText:"New Card Name", onSave: { newName in
                         if !newName.isEmpty {
                             topics[topicIdx] = newName
                         }
-                    }, title: topics[topicIdx],header: "EDIT TOPIC",inputPlaceholder: "Card Name")
+                    }, title: topics[topicIdx],header: "EDIT TOPIC",paddingValue: 32, inputPlaceholder: "Card Name")
                 }
                 
             }

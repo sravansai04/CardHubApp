@@ -4,23 +4,37 @@ import SwiftUI
 struct BulletInputView: View {
     @Binding var isPresented: Bool
     @State private var bulletText: String = ""
-    
-    // @State private var bulletText: String = "New Bullet"
-    /*
-     If we uncomment above line, the default string will be New Bullet and we can edit that.
-     */
     @State private var showingEmptyBulletAlert = false
+    @State private var isEditing: Bool = false
+    
     var onSave: (String) -> Void
     var title: String
     var header: String
+    var paddingValue : CGFloat
     var inputPlaceholder :String
+    var initialBulletText: String
+    init(isPresented: Binding<Bool>, initialBulletText: String, onSave: @escaping (String) -> Void, title: String, header: String, paddingValue: CGFloat, inputPlaceholder: String) {
+        self._isPresented = isPresented
+        self._bulletText = State(initialValue: initialBulletText)
+        self.onSave = onSave
+        self.title = title
+        self.header = header
+        self.paddingValue = paddingValue
+        self.inputPlaceholder = inputPlaceholder
+        self.initialBulletText = initialBulletText
+        
+    }
+    //    init(){
+    //        self._bulletText=State(initialValue: "Hello")
+    //    }
     var body: some View {
         VStack {
+            
             Text("\(header)")
                 .font(.title)
                 .bold()
                 .foregroundColor(.customOrange)
-                .padding(.bottom,23)
+                .padding(paddingValue)
             VStack(spacing: .zero){
                 Text("\(title)")
                     .bold()
@@ -29,6 +43,12 @@ struct BulletInputView: View {
                     .foregroundColor(.white)
                     .background(Color.customOrange)
                 TextField("Enter \(inputPlaceholder)", text: $bulletText)
+                    .onTapGesture {
+                        if bulletText == initialBulletText {
+                            bulletText = ""
+                        }
+                        isEditing = true
+                    }
                     .frame(width: 330.0)
                     .frame(height: 58.0)
                     .background(Color.customGrey)
@@ -60,10 +80,10 @@ struct BulletInputView: View {
                 Text("Cancel")
             }
             .buttonStyle(CustomButtonStyle(color: .customYellow))
-            .padding(.bottom, 300)
+            Spacer()
             
         }
-        .padding(.top, 40)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        //        .padding(.top, 40)
+        //        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 }
